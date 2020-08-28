@@ -23,48 +23,16 @@
       <button type="button" class="profile__add-button" aria-label="Добавить"></button>
     </section>
     <section class="elements">
-      <article class="element">
-        <img class="element__image" src="./images/element-baikal.png" alt="Байкал">
-        <div class="element__place">
-          <p class="element__point">Байкал</p>
-          <button type="button" class="element__like" aria-label="Нравится"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/element-krim.png" alt="Крым">
-        <div class="element__place">
-          <p class="element__point">Крым</p>
-          <button type="button" class="element__like" aria-label="Нравится"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/element-moscow.png" alt="Москва">
-        <div class="element__place">
-          <p class="element__point">Москва</p>
-          <button type="button" class="element__like" aria-label="Нравится"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/element-peterburg.png" alt="Санкт-Петербург">
-        <div class="element__place">
-          <p class="element__point">Санкт-Петербург</p>
-          <button type="button" class="element__like" aria-label="Нравится"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/element-rostov.png" alt="Ростов">
-        <div class="element__place">
-          <p class="element__point">Ростов</p>
-          <button type="button" class="element__like" aria-label="Нравится"></button>
-        </div>
-      </article>
-      <article class="element">
-        <img class="element__image" src="./images/element-smolensk.png" alt="Смоленск">
-        <div class="element__place">
-          <p class="element__point">Смоленск</p>
-          <button type="button" class="element__like" aria-label="Нравится"></button>
-        </div>
-      </article>
+      <template id="element">
+        <article class="element">
+          <img class="element__image" alt="Место">
+          <button type="button" class="element__delete" aria-label="Удалить"></button>
+          <div class="element__place">
+            <p class="element__point"></p>
+            <button type="button" class="element__like" aria-label="Нравится"></button>
+          </div>
+        </article>
+      </template>
     </section>
   </main>
   <footer class="footer">
@@ -78,6 +46,22 @@
       <button type="button" class="popup__close" aria-label="Закрыть Окно"></button>
       <button type="submit" class="popup__save" aria-label="Сохранить">Сохранить</button>
     </form>
+  </div>
+  <div class="popup popup_place">
+    <form class="popup__container popup__container_place" name="popup-place__container">
+      <h2 class="popup__title">Новое место</h2>
+      <input type="text" class="popup__text popup__text_place-name" name="popup__text_place-name" placeholder="Название">
+      <input type="text" class="popup__text popup__text_place-link" name="popup__text_place-link" placeholder="Ссылка на картинку">
+      <button type="button" class="popup__close popup__close_place" aria-label="Закрыть Окно"></button>
+      <button type="submit" class="popup__save popup__save_place" aria-label="Создать">Создать</button>
+    </form>
+  </div>
+  <div class="popup popup_image">
+    <figure class="popup__image-container">
+      <img class="popup__big-image" src="/" alt="Место">
+      <button type="button" class="popup__close popup__close_image" aria-label="Закрыть Окно"></button>
+      <p class="popup__image-name"></p>
+    </figure>
   </div>
   <script src="./scripts/main.js"></script>
 </body>

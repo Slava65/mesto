@@ -22,8 +22,10 @@
 
 @media screen and (max-width: 560px) {
   .popup__text {
-    width: calc(100% - 12px);
-    margin-left: 6px;
-    margin-right: auto;
+    width: calc(100% - 40px);
+    margin: 0 20px 20px;
+    font-size: 12px;
+    line-height: 15px;
+    height: 21.3px;
   }
 }

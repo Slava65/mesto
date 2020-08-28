@@ -24,7 +24,10 @@
 
 @media screen and (max-width: 560px) {
   .popup__save {
-    width: calc(100% - 12px);
-    margin: 48px auto 36.5px;
+    width: calc(100% - 40px);
+    height: 40px;
+    margin: 36px 20px 30px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }
