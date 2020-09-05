@@ -121,9 +121,25 @@ popupImageCloseButton.addEventListener('click', () => {
   popupOpen(popupImage);
 });
 
+//Функция закрытия попапа кликом по оверлей
+const popupList = Array.from(document.querySelectorAll('.popup'));
+popupList.forEach((popupElement) => {
+   popupElement.addEventListener('click', evt => {
+      if (evt.target === evt.currentTarget) {
+        popupOpen(popupElement);
+      }
+    })
+})
 
+//Функция закрытия попапа по Esc
+function escPopap(evt) {
+  if (evt.key === "Escape") {
+    popupList.forEach((popupElement) => {
+      if (popupElement.classList.contains("popup_opened")) {
+        popupOpen(popupElement);
+      }
+    });
+  }
+}
 
-
-
-
-
+document.addEventListener("keydown", escPopap);
