@@ -46,11 +46,17 @@ const initialCards = [
   }
 ];
 
-//Функция открытия модальных окон
-const popupOpen = function(selector) {
-  selector.classList.toggle('popup_opened');
-  document.addEventListener("keydown", escPopap);
-}
+
+const popupOpen = ((selector) => {
+  if (!selector.classList.contains('popup_opened')) {
+    document.addEventListener("keydown", escPopap);
+    selector.classList.add('popup_opened');
+  }
+    else {
+      document.removeEventListener("keydown", escPopap);
+      selector.classList.remove('popup_opened');
+    }
+})
 
 //Функция сохранения данных редактирования профиля
 function popupSubmitHandler(event) {
@@ -141,7 +147,6 @@ function escPopap(evt) {
     popupList.forEach((popupOpened) => {
       if (popupOpened.classList.contains("popup_opened")) {
         popupOpen(popupOpened);
-        document.removeEventListener("keydown", escPopap);
       }
     });
   }
