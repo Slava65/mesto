@@ -16,6 +16,9 @@ const popupCloseButtonPlace = popupPlace.querySelector('.popup__close_place');
 const linkPlaceInput = document.querySelector('.popup__text_place-link');
 const popupPlaceForm = popupPlace.querySelector('.popup__container_place');
 const elementList = document.querySelector('.element__list');
+const imageName =  document.querySelector('.popup__image-name');
+const userElement = document.querySelector('#element');
+const popupOpened = document.querySelector('.popup_opened');
 const initialCards = [
   {
     name: 'Архыз',
@@ -46,6 +49,7 @@ const initialCards = [
 //Функция открытия модальных окон
 const popupOpen = function(selector) {
   selector.classList.toggle('popup_opened');
+  document.addEventListener("keydown", escPopap);
 }
 
 //Функция сохранения данных редактирования профиля
@@ -69,23 +73,23 @@ popupForm.addEventListener('submit', popupSubmitHandler);
 
 //Функция оформления карточки
 const addElementContainer = element => {
-  const userElement = document.querySelector('#element').content.cloneNode(true);
-  userElement.querySelector('.element__image').src = element.link;
-  userElement.querySelector('.element__point').textContent = element.name;
-  userElement.querySelector('.element__delete').addEventListener('click', event => {
+  const cloneElement = userElement.content.cloneNode(true);
+  cloneElement.querySelector('.element__image').src = element.link;
+  cloneElement.querySelector('.element__point').textContent = element.name;
+  cloneElement.querySelector('.element__delete').addEventListener('click', event => {
     event.target.closest('.element').remove();
   });
-  userElement.querySelector('.element__like').addEventListener('click', event => {
+  cloneElement.querySelector('.element__like').addEventListener('click', event => {
     const like = event.target.closest('.element__like');
     like.classList.toggle('element__like_active');
   })
-  userElement.querySelector('.element__image').addEventListener('click', event => {
+  cloneElement.querySelector('.element__image').addEventListener('click', event => {
     popupOpen(popupImage);
     const image = event.target.closest('.element__image');
     popupBigImage.src = image.src;
-    document.querySelector('.popup__image-name').textContent = element.name;
+    imageName.textContent = element.name;
   })
-    return userElement;
+    return cloneElement;
 }
 
 // Функция добавления карточки
@@ -134,12 +138,12 @@ popupList.forEach((popupElement) => {
 //Функция закрытия попапа по Esc
 function escPopap(evt) {
   if (evt.key === "Escape") {
-    popupList.forEach((popupElement) => {
-      if (popupElement.classList.contains("popup_opened")) {
-        popupOpen(popupElement);
+    popupList.forEach((popupOpened) => {
+      if (popupOpened.classList.contains("popup_opened")) {
+        popupOpen(popupOpened);
+        document.removeEventListener("keydown", escPopap);
       }
     });
   }
 }
 
-document.addEventListener("keydown", escPopap);
