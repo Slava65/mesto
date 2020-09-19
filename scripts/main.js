@@ -1,3 +1,5 @@
+import { Card } from './Card.js';
+
 const popup = document.querySelector('.popup')
 const popupEditButton = document.querySelector('.profile__edit-button');
 const popupCloseButton = popup.querySelector('.popup__close');
@@ -76,35 +78,9 @@ popupCloseButton.addEventListener('click', () => {
   popupOpen(popup)
 });
 popupForm.addEventListener('submit', popupSubmitHandler);
-
-//Функция оформления карточки
-const addElementContainer = element => {
-  const cloneElement = userElement.content.cloneNode(true);
-  cloneElement.querySelector('.element__image').src = element.link;
-  cloneElement.querySelector('.element__point').textContent = element.name;
-  cloneElement.querySelector('.element__delete').addEventListener('click', event => {
-    event.target.closest('.element').remove();
-  });
-  cloneElement.querySelector('.element__like').addEventListener('click', event => {
-    const like = event.target.closest('.element__like');
-    like.classList.toggle('element__like_active');
-  })
-  cloneElement.querySelector('.element__image').addEventListener('click', event => {
-    popupOpen(popupImage);
-    const image = event.target.closest('.element__image');
-    popupBigImage.src = image.src;
-    imageName.textContent = element.name;
-  })
-    return cloneElement;
-}
-
-// Функция добавления карточки
-const addCard = element => {
-  elementList.prepend(addElementContainer(element));
-}
-
+////
 initialCards.forEach ((element) => {
-   addCard(element);
+  new Card(element, '').render(elementContainer);
 })
 
 popupAddButton.addEventListener('click', () => {
