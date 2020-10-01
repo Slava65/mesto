@@ -1,5 +1,5 @@
 import { Card } from './Card.js';
-
+import { FormValidator } from './FormValidator.js';
 const popup = document.querySelector('.popup')
 const popupEditButton = document.querySelector('.profile__edit-button');
 const popupCloseButton = popup.querySelector('.popup__close');
@@ -8,19 +8,14 @@ const job = document.querySelector('.profile__job');
 const nameInput = document.querySelector('.popup__text_name');
 const jobInput = document.querySelector('.popup__text_job');
 const popupForm = popup.querySelector('.popup__container');
-const elementContainer = document.querySelector('.elements');
 const popupImage = document.querySelector('.popup_image');
-const elementImage = document.querySelector('.element__button-image');
-const popupBigImage = document.querySelector('.popup__big-image');
 const popupPlace = document.querySelector('.popup_place')
 const popupAddButton = document.querySelector('.profile__add-button');
 const popupCloseButtonPlace = popupPlace.querySelector('.popup__close_place');
-const linkPlaceInput = document.querySelector('.popup__text_place-link');
 const popupPlaceForm = popupPlace.querySelector('.popup__container_place');
 const elementList = document.querySelector('.element__list');
-const imageName =  document.querySelector('.popup__image-name');
-const userElement = document.querySelector('#element');
-const popupOpened = document.querySelector('.popup_opened');
+const placeName = popupPlaceForm.querySelector('.popup__text_place-name');
+const placeLink = popupPlaceForm.querySelector('.popup__text_place-link');
 const initialCards = [
   {
     name: 'Архыз',
@@ -48,8 +43,7 @@ const initialCards = [
   }
 ];
 
-
-const popupOpen = ((selector) => {
+function popupOpen(selector) {
   if (!selector.classList.contains('popup_opened')) {
     document.addEventListener("keydown", escPopap);
     selector.classList.add('popup_opened');
@@ -58,7 +52,7 @@ const popupOpen = ((selector) => {
       document.removeEventListener("keydown", escPopap);
       selector.classList.remove('popup_opened');
     }
-})
+}
 
 //Функция сохранения данных редактирования профиля
 function popupSubmitHandler(event) {
@@ -78,30 +72,46 @@ popupCloseButton.addEventListener('click', () => {
   popupOpen(popup)
 });
 popupForm.addEventListener('submit', popupSubmitHandler);
-////
+
+//Создание нового экземпляра класса Card
 initialCards.forEach ((element) => {
-  new Card(element, '').render(elementContainer);
+  new Card(element, '').render(elementList);
 })
 
+//Слушатель открытия окна ввода новой карточки
 popupAddButton.addEventListener('click', () => {
   popupOpen(popupPlace);
 });
 
+//Слушатель закрытия
 popupCloseButtonPlace.addEventListener('click', () => {
   popupOpen(popupPlace);
 });
 
+//Добавление новой карточки
 popupPlaceForm.addEventListener('submit', event => {
   event.preventDefault()
-  element = {
-    name : popupPlaceForm.querySelector('.popup__text_place-name').value,
-    link : popupPlaceForm.querySelector('.popup__text_place-link').value
+  const element = {
+    name : placeName.value,
+    link : placeLink.value
   };
-  addCard(element);
+  new Card(element, '').render(elementList);
   popupPlaceForm.reset();
   popupOpen(popupPlace);
 });
 
+//Слушатель открытия окна с картинкой
+const imageList = Array.from(document.querySelectorAll('.element__image'));
+imageList.forEach((item) => {
+  item.addEventListener('click', event => {
+  popupOpen(popupImage);
+  const image = event.target.closest('.element__image');
+  document.querySelector('.popup__big-image').src = image.src;
+  document.querySelector('.popup__image-name').textContent = element.name;
+  })
+});
+
+//Слушатель закрытия окна с картинкой
 const popupImageCloseButton = document.querySelector('.popup__close_image');
 popupImageCloseButton.addEventListener('click', () => {
   popupOpen(popupImage);
@@ -128,3 +138,13 @@ function escPopap(evt) {
   }
 }
 
+//Создание нового экземпляра класса FOrmValidator
+Array.from(document.querySelectorAll('.popup__container')).forEach((form) => {
+  new FormValidator({
+    inputSelector: '.popup__text',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'popup__save_inactive',
+    inputErrorClass: 'popup__error',
+    errorClass: 'popup__error_active'
+  }, form).enableValidation();
+})

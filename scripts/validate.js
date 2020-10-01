@@ -10,19 +10,14 @@ const errorPlaceLink = document.querySelector('.popup__error_type_place-link');
 const btnProfile = document.querySelector('.popup__save');
 const btnPlace = document.querySelector('.popup__save_place');
 
-// enableValidation({
-//   formElement: '.popup__container',
-//   profileNameInput: '.popup__text_name',
-//   profileJobInput: '.popup__text_job',
-//   placeNameInput: '.popup__text_place-name',
-//   placeLinkInput: '.popup__text_place-link',
-//   errorProfileName: '.popup__error_type_profile-name',
-//   errorProfileJob: '.popup__error_type_profile-job',
-//   errorPlaceName: '.popup__error_type_place-name',
-//   errorPlaceLink: '.popup__error_type_place-link',
-//   btnProfile: '.popup__save',
-//   btnPlace: '.popup__save_place'
-// });
+enableValidation({
+  formSelector: '.popup__container',
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__error',
+  errorClass: 'popup__error_active'
+});
 
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -85,7 +80,7 @@ const enableValidation = () => {
   });
 };
 
-enableValidation();
+
 
 
 
