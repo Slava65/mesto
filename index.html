@@ -31,7 +31,7 @@
     <p class="footer__copyright">&copy; 2020.  Mesto Russia</p>
   </footer>
   <div class="popup">
-    <form class="popup__container" name="popup__container" novalidate>
+    <form class="popup__container popup__container_profile" name="popup__container" novalidate>
       <h2 class="popup__title">Редактировать профиль</h2>
       <input id="profile-name" type="text" class="popup__text popup__text_name" name="popup__text_name" required minlength="2" maxlength="40">
       <span id="profile-name-error" class='popup__error'></span>
@@ -60,16 +60,16 @@
     </figure>
   </div>
   <template id="element">
-      <li class="element">
-        <article>
-          <img class="element__image" alt="Место">
-          <button type="button" class="element__delete" aria-label="Удалить"></button>
-          <div class="element__place">
-            <p class="element__point"></p>
-            <button type="button" class="element__like" aria-label="Нравится"></button>
-          </div>
-        </article>
-      </li>
+    <li class="element">
+      <article>
+        <img class="element__image" alt="">
+        <button type="button" class="element__delete" aria-label="Удалить"></button>
+        <div class="element__place">
+          <p id="point" class="element__point"></p>
+          <button type="button" class="element__like" aria-label="Нравится"></button>
+        </div>
+      </article>
+    </li>
   </template>
   <script type="module" src="./scripts/index.js"></script>
 </body>
