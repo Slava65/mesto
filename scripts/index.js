@@ -47,7 +47,10 @@ new FormValidator(validationObject, popupPlaceForm).enableValidation();
 new FormValidator(validationObject, popupProfileForm).enableValidation();
 
 
-const popupProfileObject = new PopupWithForm('.popup_profile', '');
+const popupProfileObject = new PopupWithForm('.popup_profile', () => {
+  name.textContent = nameInput.textContent;
+  job.textContent = jobInput.textContent;
+});
 
 const popupPlaceObject = new PopupWithForm('.popup_place', () => {
   const newElement = PopupWithForm._getInputValues();

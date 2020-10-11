@@ -16,13 +16,11 @@ export class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
-    this._popupSelector.querySelector('.popup__close').addEventListener('click', () => {
-      this.close();
-    });
+    this._popupSelector.querySelector('.popup__close').addEventListener('click', this.close());
     this._popupSelector.addEventListener('submit', this._submitForm);
   }
 
-  _close() {
+  close() {
     this._popupSelector.classList.remove('popup_opened');
     this._popupSelector.reset();
   }
