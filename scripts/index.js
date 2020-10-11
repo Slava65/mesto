@@ -37,49 +37,44 @@ const cardList = new Section({
     cardList.addItem(card)}
   }, '.element__list');
 
-  const handleCardClick = () => {
-    new PopupWithImage(popupImage).open(evt);
+  const handleCardClick = (evt) => {
+    new PopupWithImage('.popup_image').open(evt);
   }
-
   cardList.drowingElement();
 
-//Создание экземпляра
-// const renderCard = (data, cardSelector, container) => {
-//   const card = new Card(data, cardSelector).getCard();
-//   container.prepend(card);
-// }
-
-//Добавление карточек из списка
-// initialCards.forEach ((element) => {
-//   renderCard(element, template, elementList);
-// });
 
 new FormValidator(validationObject, popupPlaceForm).enableValidation();
 new FormValidator(validationObject, popupProfileForm).enableValidation();
 
-popupAddButton.addEventListener('click', new PopupWithForm('.popup__container_profile', ))
+
+const popupProfileObject = new PopupWithForm('.popup_profile', '');
+
+const popupPlaceObject = new PopupWithForm('.popup_place', () => {
+  const newElement = PopupWithForm._getInputValues();
+  const newCard = new Card(newElement, template, handleCardClick).getCard();
+  cardList.addItem(newCard);
+});
+
+popupEditButton.addEventListener('click', () => {
+  popupProfileObject.open();
+  nameInput.textContent = name.textContent;
+  jobInput.textContent = job.textContent;
+});
+
+popupAddButton.addEventListener('click', () => {
+  popupPlaceObject.open();
+});
 
 
 //Функция закрытия попапа кликом по оверлей
-const popupList = Array.from(document.querySelectorAll('.popup'));
-popupList.forEach((popupElement) => {
-   popupElement.addEventListener('click', evt => {
-      if (evt.target === evt.currentTarget) {
-        openPopup(popupElement);
-      }
-    })
-})
-
-function openImage() {
-  openPopup(popupImage);
-}
-
-const submitForm = (evt) => {
-  evt.preventDefault();
-  const newElement = popupProfileObject._getInputValues();
-  renderCard(newElement, template, elementList);
-}
+// const popupList = Array.from(document.querySelectorAll('.popup'));
+// popupList.forEach((popupElement) => {
+//    popupElement.addEventListener('click', evt => {
+//       if (evt.target === evt.currentTarget) {
+//         openPopup(popupElement);
+//       }
+//     })
+// })
 
 
-const popupProfileObject = new PopupWithForm('.popup__container_profile', submitForm);
-const popupPlaceObject = new PopupWithForm('.popup__container_place', submitForm);
+

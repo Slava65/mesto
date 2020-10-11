@@ -8,7 +8,6 @@ export class Section {
     drowingElement() {
       this._items.forEach((item) => {
         const cardElement = this._renderer(item);
-        this.addItem(cardElement);
       })
     }
 
