@@ -31,7 +31,3 @@ export function openImage(event, data) {
   bigImage.alt = `${point}`;
   imageName.textContent = point;
 }
-
-export function toggleButtonState(button) {
-  button.classList.toggle('popup__save_inactive');
-};

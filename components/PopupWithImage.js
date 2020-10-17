@@ -12,5 +12,11 @@ export class PopupWithImage extends Popup {
     this._popupSelector.querySelector('.popup__big-image').src = image.src;
     this._popupSelector.querySelector('.popup__big-image').alt = `${point}`;
     this._popupSelector.querySelector('.popup__image-name').textContent = point;
+
+    document.addEventListener('keydown', (evt) => {
+      if (evt.key === "Escape") {
+        this._handleEscClose();
+      }
+    })
   }
 }
