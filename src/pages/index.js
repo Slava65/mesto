@@ -7,7 +7,6 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
-import { openPopup } from '../scripts/utils.js';
 
 //Переменные
 const popupEditButton = document.querySelector('.profile__edit-button');
@@ -20,6 +19,13 @@ const template = document.querySelector('#element');
 const popupProfileForm = document.querySelector('.popup__container_profile');
 const profileObject = {name: '.profile__name', info: '.profile__job'};
 
+new FormValidator(validationObject, popupPlaceForm).enableValidation();
+
+new FormValidator(validationObject, popupProfileForm).enableValidation();
+
+const popupImage = new PopupWithImage('.popup_image');
+
+const userInfo = new UserInfo(profileObject);
 
 const createCard = (item) => {
  const card = new Card(item, template, handleCardClick).getCard();
@@ -30,25 +36,14 @@ const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = createCard(item);
-    // const card = new Card(item, template, handleCardClick).getCard();
     cardList.addItem(card)}
 }, '.element__list');
 
-const handleCardClick = (evt) => {
-    const popupImageObject = new PopupWithImage('.popup_image');
-    const image = evt.target.closest('.element__image');
-    const point = evt.target.parentElement.querySelector('.element__point').textContent;
-    const link = image.src;
-    popupImageObject.open({ link, point });
-    popupImageObject.setEventListeners();
+const handleCardClick = (imageObject) => {
+  popupImage.open(imageObject);
 }
 
-cardList.drowingElement();
-
-new FormValidator(validationObject, popupPlaceForm).enableValidation();
-new FormValidator(validationObject, popupProfileForm).enableValidation();
-
-const userInfo = new UserInfo(profileObject);
+cardList.renderElements();
 
 const popupProfileObject = new PopupWithForm('.popup_profile', () => {
   const newProfile = popupProfileObject._getInputValues();
@@ -56,15 +51,18 @@ const popupProfileObject = new PopupWithForm('.popup_profile', () => {
   popupProfileObject.close();
 });
 
-popupProfileObject.setEventListeners();
-
 const popupPlaceObject = new PopupWithForm('.popup_place', (element) => {
   const newCard = createCard(element);
   cardList.addItem(newCard);
   popupPlaceObject.close();
 });
 
+//Обработчики
 popupPlaceObject.setEventListeners();
+
+popupProfileObject.setEventListeners();
+
+popupImage.setEventListeners();
 
 popupEditButton.addEventListener('click', () => {
   popupProfileObject.open();
@@ -76,16 +74,6 @@ popupEditButton.addEventListener('click', () => {
 popupAddButton.addEventListener('click', () => {
   popupPlaceObject.open();
 });
-
-// Функция закрытия попапа кликом по оверлей
-const popupList = Array.from(document.querySelectorAll('.popup'));
-popupList.forEach((popupElement) => {
-  popupElement.addEventListener('click', evt => {
-    if (evt.target === evt.currentTarget) {
-      openPopup(popupElement);
-    }
-  })
-})
 
 
 

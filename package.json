@@ -1,11 +1,11 @@
 {
   "name": "mesto",
   "version": "0.0.1",
-  "description": "Данный проект предназначен для",
+  "description": "Проект Место. Россия",
   "main": "index.js",
   "scripts": {
-    "build": "rd /s /q dist && webpack",
-    "dev": "webpack-dev-server --open"
+    "build": "rimraf dist && webpack",
+    "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
     "type": "git",

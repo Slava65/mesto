@@ -9,7 +9,10 @@ export class Card {
     _setEventListeners() {
       this._cloneCard.querySelector('.element__like').addEventListener('click', this._likeCard);
       this._cloneCard.querySelector('.element__delete').addEventListener('click', this._deleteCard);
-      this._cloneCard.querySelector('.element__image').addEventListener('click', this._handleCardClick);
+      this._cloneCard.querySelector('.element__image').addEventListener('click', () => this._handleCardClick({
+        point: this._text,
+        link: this._image
+       }));
     }
 
     _deleteCard = () => {
@@ -21,7 +24,7 @@ export class Card {
       this._cloneCard.querySelector('.element__like').classList.toggle('element__like_active');
     }
 
-      getCard = () => {
+    getCard = () => {
       this._cloneCard = this._cardSelector.content.cloneNode(true).children[0];
       this._cloneCard.querySelector('.element__image').src = this._image;
       this._cloneCard.querySelector('.element__point').textContent = this._text;

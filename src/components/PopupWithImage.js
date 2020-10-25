@@ -8,23 +8,10 @@ export class PopupWithImage extends Popup {
     this.imageName = this._popupSelector.querySelector('.popup__image-name');
   }
 
-  open({ link, point }) {
+  open(imageObject) {
     super.open();
-    // const image = evt.target.closest('.element__image');
-    // const point = evt.target.parentElement.querySelector('.element__point').textContent;
-    this.bigImage.src = link;
-    this.bigImage.alt = point;
-    this.imageName.textContent = point;
-
-
-    // this.bigImage.src = image.src;
-    // this.bigImage.alt = `${point}`;
-    // this.imageName.textContent = point;
-
-    document.addEventListener('keydown', (evt) => {
-      if (evt.key === "Escape") {
-        this._handleEscClose();
-      }
-    })
+    this.bigImage.src = imageObject.link;
+    this.bigImage.alt = imageObject.point;
+    this.imageName.textContent = imageObject.point;
   }
 }

@@ -5,9 +5,9 @@ export class Section {
     this._containerSelector = document.querySelector(containerSelector);
   }
 
-    drowingElement() {
+    renderElements() {
       this._items.forEach((item) => {
-        const cardElement = this._renderer(item);
+        this._renderer(item);
       })
     }
 
