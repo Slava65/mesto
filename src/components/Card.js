@@ -1,6 +1,6 @@
 export class Card {
   constructor(data, cardSelector, handleCardClick) {
-    this._text = data.place;
+    this._text = data.name;
 		this._image = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -12,12 +12,11 @@ export class Card {
       this._cloneCard.querySelector('.element__image').addEventListener('click', () => this._handleCardClick({
         point: this._text,
         link: this._image
-       }));
+      }));
     }
 
     _deleteCard = () => {
-      this._cloneCard.remove();
-      this._cloneCard = null;
+      document.querySelector('.popup_confirm').classList.add('popup_opened');
     }
 
     _likeCard = () => {

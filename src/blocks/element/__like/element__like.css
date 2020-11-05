@@ -4,7 +4,8 @@
   background-image: url('../../../images/element-like.svg');
   background-size: cover;
   background-repeat: no-repeat;
-  margin-top: 6px;
+  /* margin-top: -4px; */
+  margin-bottom: 3px;
   border: none;
   background-color: #ffffff;
   padding: 0;

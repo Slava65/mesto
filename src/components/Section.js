@@ -1,12 +1,12 @@
 export class Section {
-  constructor(sectionObject, containerSelector) {
-    this._items = sectionObject.items;
-    this._renderer = sectionObject.renderer;
+  constructor(renderer, containerSelector) {
+    // this._items = sectionObject.items;
+    this._renderer = renderer;
     this._containerSelector = document.querySelector(containerSelector);
   }
 
-    renderElements() {
-      this._items.forEach((item) => {
+    renderElements(items) {
+      items.forEach((item) => {
         this._renderer(item);
       })
     }
@@ -14,4 +14,12 @@ export class Section {
     addItem(element) {
       this._containerSelector.prepend(element);
     }
+
+    // _saveItem(text) {
+    //   this._api
+    //     .addNewCard({name: text.name, link: text.link})
+    //     .then((data) => this.addItem({data.name, data.link})
+
+    //     )
+    // }
 }
