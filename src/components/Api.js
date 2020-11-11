@@ -30,19 +30,18 @@ export class Api {
     })
   }
 
-  // delCard() {
-  //   return fetch(`${this._url}${id}`, {
-  //     method: 'DELETE',
-  //     headers: this._headers,
-  //     body: JSON.stringify(data)
-  //   })
-  //   .then ((res) => {
-  //     if (res.ok) {
-  //       return res.json();
-  //     }
-  //       return Promise.reject(`Ошибка: ${res.status}`);
-  //   })
-  // }
+  delCard(cardId) {
+    return fetch(`${this._url}cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then ((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+        return Promise.reject(`Ошибка: ${res.status}`);
+    })
+  }
 
   getInfoUser() {
     return fetch(`${this._url}users/me`, {
@@ -70,33 +69,29 @@ export class Api {
       });
   }
 
-  // getLikes() {
+  setLike(cardId, isLiked) {
+    const method = isLiked ? 'DELETE' : 'PUT';
+    return fetch(`${this._url}cards/likes/${cardId}`, {
+      method,
+      headers: this._headers,
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
 
-  // }
-
-  // setLike() {
-  //   return fetch(this._url, {
-  //     method: 'PUT',
-  //     headers: this._headers
-  //   });
-  // }
-
-  // delLike() {
-  //   return fetch(this._url, {
-  //     method: 'DELETE',
-  //     headers: this._headers
-  //   });
-  // }
-
-  // setAva() {
-  //   return fetch(this._url, {
-  //     method: 'PATCH',
-  //     headers: this._headers
-  //     body: JSON.stringify({
-  //       avatar: newAva,
-  //     })
-  //   });
-  // }
+  setAva(newAva) {
+    return fetch(`${this._url}users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: newAva,
+      })
+    });
+  }
 
 }
 

@@ -18,6 +18,7 @@
 @import url('../blocks/element/__list/element__list.css');
 @import url('../blocks/element/__image/element__image.css');
 @import url('../blocks/element/__delete/element__delete.css');
+@import url('../blocks/element/__delete/_none/element__delete_none.css');
 @import url('../blocks/element/__place/element__place.css');
 @import url('../blocks/element/__point/element__point.css');
 @import url('../blocks/element/__likeblock/element__likeblock.css');

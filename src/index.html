@@ -13,8 +13,9 @@
     <section class="profile">
       <div class="profile__data">
         <div class="profile__ava-block">
-        <img class="profile__avatar" src="./images/profile-image.jpg" alt="">
-        <button type="button" class="profile__avatar-edit" aria-label="Редактировать"></button>
+          <button type="button" class="profile__avatar-edit" aria-label="Редактировать"></button>
+          <img class="profile__avatar" src="./images/profile-image.jpg" alt="">
+
         </div>
         <div class="profile__text">
           <h1 class="profile__name">Слава Зайцев</h1>
@@ -40,7 +41,7 @@
       <input id="profile-job" type="text" class="popup__text popup__text_job" name="about" required minlength="2" maxlength="200">
       <span id="profile-job-error" class='popup__error'></span>
       <button type="button" class="popup__close" aria-label="Закрыть Окно"></button>
-      <button type="submit" class="popup__save" aria-label="Сохранить">Сохранить</button>
+      <button type="submit" class="popup__save popup__save_profile" aria-label="Сохранить">Сохранить</button>
     </form>
   </div>
   <div class="popup popup_place">
@@ -65,7 +66,7 @@
     <form class="popup__container popup__container_confirm" name="confirm" novalidate>
       <h2 class="popup__title">Вы уверены?</h2>
       <button type="button" class="popup__close popup__close_confirm" aria-label="Закрыть Окно"></button>
-      <button type="click" class="popup__confirmbtn" aria-label="Да">Да</button>
+      <button type="submit" class="popup__confirmbtn" aria-label="Да">Да</button>
     </form>
   </div>
   <div class="popup popup_avatar">
@@ -85,7 +86,7 @@
           <p id="point" class="element__point"></p>
           <div class="element__likeblock">
             <button type="button" class="element__like" aria-label="Нравится"></button>
-            <p class="element__likecount">1</p>
+            <p class="element__likecount"></p>
           </div>
         </div>
       </article>
