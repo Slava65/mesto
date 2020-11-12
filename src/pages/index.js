@@ -1,7 +1,7 @@
 import './index.css';
-import { Card } from '../components/Card.js';
+import { Card,  } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
-import { validationObject } from '../scripts/constants.js';
+import { validationObject, myId, profileObject } from '../scripts/constants.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
@@ -19,8 +19,6 @@ const popupAddButton = document.querySelector('.profile__add-button');
 const popupPlaceForm = popupPlace.querySelector('.popup__container_place');
 const template = document.querySelector('#element');
 const popupProfileForm = document.querySelector('.popup__container_profile');
-const profileObject = {name: '.profile__name', about: '.profile__job', avatar: '.profile__avatar'};
-const myId = '85a711df53234156e7903c38';
 const popupAvatarForm = document.querySelector('.popup__container_avatar');
 const avatarBtn = document.querySelector('.profile__avatar');
 
