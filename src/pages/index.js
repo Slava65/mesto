@@ -19,7 +19,7 @@ const popupAddButton = document.querySelector('.profile__add-button');
 const popupPlaceForm = popupPlace.querySelector('.popup__container_place');
 const template = document.querySelector('#element');
 const popupProfileForm = document.querySelector('.popup__container_profile');
-const profileObject = {name: '.profile__name', about: '.profile__job'};
+const profileObject = {name: '.profile__name', about: '.profile__job', avatar: '.profile__avatar'};
 const myId = '85a711df53234156e7903c38';
 
 const api = new Api({
@@ -67,6 +67,7 @@ const getInfoUser = () => {
     const myInfo = {};
     myInfo.name = getInfo.name;
     myInfo.about = getInfo.about;
+    myInfo.avatar = getInfo.avatar;
     userInfo.setUserInfo(myInfo);
   })
   .catch((error) => {
@@ -85,9 +86,11 @@ const userInfo = new UserInfo(profileObject);
 
 //Редактирование профайла
 const popupProfileObject = new PopupWithForm('.popup_profile', (data) => {
-  renderLoading(true)
+
   api.editInfoUser({name: data.name, about: data.about})
+
       .then(info => {
+        renderLoading(true);
         userInfo.setUserInfo({
           name: info.name,
           about: info.about,
@@ -106,7 +109,9 @@ const popupProfileObject = new PopupWithForm('.popup_profile', (data) => {
 const popupPlaceObject = new PopupWithForm('.popup_place', (data) => {
   api.addNewCard({name: data.name, link: data.link})
     .then(info => {
+
       const newCard = createCard({name: info.name, link: info.link, likes: info.likes, owner: info.owner, cardId: info._id});
+      console.log(newCard)
       cardList.addItem(newCard);
       popupPlaceObject.close();
     })
@@ -140,13 +145,14 @@ const confirmPopup = new Confirm('.popup_confirm');
 
 confirmPopup.setEventListeners();
 
-const confirmDel = (id) => {
+const confirmDel = (id, card) => {
   confirmPopup.open();
   confirmPopup.setSubmitCallback(() => {
     api.delCard(id)
       .then((data) => {
         console.log(data);
         confirmPopup.close();
+        card.removeCard();
         })
       .catch((error) => {
         console.log(error);
@@ -160,49 +166,55 @@ const handleLikeClick = (card) => {
   api.setLike(cardId, isLiked)
     .then(newCard => {
       const likes = newCard.likes;
-      card.renderLikes(likes);
+      card.renderLikes(likes, !isLiked);
       card.refreshDataLikes(likes);
     })
     .catch((error) => {
       console.log(error);
-       })
+    })
 }
 
 
 
 
-const avatarBtn = document.querySelector('.profile__avatar-edit');
+const avatarBtn = document.querySelector('.profile__avatar');
 
-avatarBtn.addEventListener('click', openAvatarPopup)
+avatarBtn.addEventListener('click', () => document.querySelector('.popup_avatar').classList.add('popup_opened'));
 
 const avatarPopup = document.querySelector('.popup_avatar');
 
-const openAvatarPopup = () => {
-  avatarPopup.classList.add('popup_opened');
-}
+// const openAvatarPopup = () => {
+//   avatarPopup.classList.add('popup_opened');
+// }
 
 const saveAvatar = document.querySelector('.popup__refresh-ava-btn');
 
-const newAvaLink = document.querySelector('.popup__text_avatar');
+
 
 saveAvatar.addEventListener('click', () => {
-newAva = newAvaLink.textContent;
+const newAva = document.querySelector('.popup__text_avatar').textContent;
 api.setAva(newAva)
   .then((data) => {
     console.log(data);
   })
   .catch((error) => {
     console.log(error);
+    // newAvaLink.textContent = '';
   })
 })
+
+const popupAvatarClose = document.querySelector('.popup__close_avatar');
+popupAvatarClose.addEventListener('click', () => avatarPopup.classList.remove('popup_opened'));
+
 
 const saveProfile = document.querySelector('.popup__save_profile');
 
 const renderLoading = (isLoading) => {
   if (isLoading) {
-    saveProfile.setAttribute('text', 'Сохранение...');
+    saveProfile.setAttribute("textContent", 'Сохранение...');
+    console.log('true работает');
   }
   else {
-  saveProfile.setAttribute('text', 'Сохранить');
+  saveProfile.setAttribute('textContent', 'Сохранить');
   }
 }

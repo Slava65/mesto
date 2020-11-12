@@ -13,12 +13,4 @@ export class Section {
     addItem(element) {
       this._containerSelector.prepend(element);
     }
-
-    // _saveItem(text) {
-    //   this._api
-    //     .addNewCard({name: text.name, link: text.link})
-    //     .then((data) => this.addItem({data.name, data.link})
-
-    //     )
-    // }
 }

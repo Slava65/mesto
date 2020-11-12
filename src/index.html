@@ -13,13 +13,13 @@
     <section class="profile">
       <div class="profile__data">
         <div class="profile__ava-block">
-          <button type="button" class="profile__avatar-edit" aria-label="Редактировать"></button>
-          <img class="profile__avatar" src="./images/profile-image.jpg" alt="">
 
+          <img class="profile__avatar" src="#" alt="">
+          <button type="button" class="profile__avatar-edit" aria-label="Редактировать"></button>
         </div>
         <div class="profile__text">
-          <h1 class="profile__name">Слава Зайцев</h1>
-          <p class="profile__job">Прокрастинатор</p>
+          <h1 class="profile__name"></h1>
+          <p class="profile__job"></p>
         </div>
         <button type="button" class="profile__edit-button" aria-label="Редактировать"></button>
       </div>
@@ -72,9 +72,9 @@
   <div class="popup popup_avatar">
     <form class="popup__container popup__container_avatar" name="avatar" novalidate>
       <h2 class="popup__title">Обновить аватар</h2>
-      <input id="avatar" type="url" class="popup__text popup__text_avatar" name="avatar" placeholder="Ссылка на аватар" required>
+      <input id="avatar" type="url" class="popup__text popup__text_avatar" name="avatar" placeholder="Ссылка на аватар">
       <button type="button" class="popup__close popup__close_avatar" aria-label="Закрыть Окно"></button>
-      <button type="click" class="popup__refresh-ava-btn" aria-label="Сохранить">Сохранить</button>
+      <button type="button" class="popup__refresh-ava-btn" aria-label="Сохранить">Сохранить</button>
     </form>
   </div>
   <template id="element">

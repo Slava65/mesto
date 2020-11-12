@@ -31,9 +31,13 @@ export class Card {
       const id = this._cardId;
       document.querySelector('.popup_confirm').classList.add('popup_opened');
       document.querySelector('.popup__confirmbtn').addEventListener('click', () => {
-        this._confirmDel(id);
-        this._cloneCard.remove();
+        this._confirmDel(id, this);
+        console.log(this._owner);
       })
+    }
+
+    removeCard() {
+      this._cloneCard.remove();
     }
 
     isLiked() {
@@ -48,13 +52,12 @@ export class Card {
       return this._cardId;
     }
 
-    renderLikes = (likes) => {
-      const isLiked = this.isLiked();
+    renderLikes = (likes, isLiked) => {
       if (isLiked) {
-        this._cloneCard.querySelector('.element__like').classList.remove('element__like_active');
+        this._cloneCard.querySelector('.element__like').classList.add('element__like_active');
         this._cloneCard.querySelector('.element__likecount').textContent = likes.length;
       } else {
-        this._cloneCard.querySelector('.element__like').classList.add('element__like_active');
+        this._cloneCard.querySelector('.element__like').classList.remove('element__like_active');
         this._cloneCard.querySelector('.element__likecount').textContent = likes.length;
       }
     }
@@ -66,6 +69,9 @@ export class Card {
       this._cloneCard.querySelector('.element__likecount').textContent = this._likes.length;
       this._cloneCard.querySelector('.element__image').alt = `${this._text}`;
       this._setDel();
+      const likes = this._likes;
+      const isliked = this.isLiked();
+      this.renderLikes(likes, isliked);
       this._setEventListeners();
       return this._cloneCard;
     }
