@@ -21,13 +21,22 @@ export class PopupWithForm extends Popup {
       evt.preventDefault();
       this._submitForm(this._getInputValues());
     });
+    this._popupSelector.querySelector('.popup__close').addEventListener('click', () => this.close());
   }
 
   close() {
     super.close();
     this._container.reset();
-    this._saveButton.classList.toggle('popup__save_inactive');
+    this._saveButton.classList.add('popup__save_inactive');
     this._saveButton.setAttribute("disabled", "disabled");
   }
-}
 
+  setLoadingBtnStyle = (isLoading) => {
+    if (isLoading) {
+      this._saveButton.textContent = 'Сохранение...';
+    }
+    else {
+      this._saveButton.textContent = 'Сохранить';
+    }
+  }
+}

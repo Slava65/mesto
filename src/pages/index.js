@@ -21,6 +21,8 @@ const template = document.querySelector('#element');
 const popupProfileForm = document.querySelector('.popup__container_profile');
 const profileObject = {name: '.profile__name', about: '.profile__job', avatar: '.profile__avatar'};
 const myId = '85a711df53234156e7903c38';
+const popupAvatarForm = document.querySelector('.popup__container_avatar');
+const avatarBtn = document.querySelector('.profile__avatar');
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-17/',
@@ -86,14 +88,13 @@ const userInfo = new UserInfo(profileObject);
 
 //Редактирование профайла
 const popupProfileObject = new PopupWithForm('.popup_profile', (data) => {
-
+  popupProfileObject.setLoadingBtnStyle(true);
   api.editInfoUser({name: data.name, about: data.about})
-
       .then(info => {
-        renderLoading(true);
         userInfo.setUserInfo({
           name: info.name,
           about: info.about,
+          avatar: info.avatar
       })
         popupProfileObject.close();
       })
@@ -101,50 +102,32 @@ const popupProfileObject = new PopupWithForm('.popup_profile', (data) => {
         console.log(error)
       })
       .finally(() => {
-        renderLoading(false);
+        popupProfileObject.setLoadingBtnStyle(false);
       });
 });
 
 //Добавление карточки
 const popupPlaceObject = new PopupWithForm('.popup_place', (data) => {
+  popupPlaceObject.setLoadingBtnStyle(true);
   api.addNewCard({name: data.name, link: data.link})
     .then(info => {
-
-      const newCard = createCard({name: info.name, link: info.link, likes: info.likes, owner: info.owner, cardId: info._id});
+      const newCard = createCard(info);
       console.log(newCard)
       cardList.addItem(newCard);
       popupPlaceObject.close();
     })
    .catch((error) => {
-    console.log(error);})
+    console.log(error);
+  })
+  .finally(() => {
+    popupPlaceObject.setLoadingBtnStyle(false);
+  });
 });
 
-//Обработчики
-popupPlaceObject.setEventListeners();
-
-popupProfileObject.setEventListeners();
-
-popupImage.setEventListeners();
-
-popupEditButton.addEventListener('click', () => {
-  popupProfileObject.open();
-  const profileValue = userInfo.getUserInfo();
-  nameInput.value = profileValue.name;
-  jobInput.value = profileValue.about;
-});
-
-popupAddButton.addEventListener('click', () => {
-  popupPlaceObject.open();
-});
-
-document.querySelector('.popup__close_confirm').addEventListener('click', () => {
-  document.querySelector('.popup_confirm').classList.remove('popup_opened');
-})
 
 const confirmPopup = new Confirm('.popup_confirm');
 
-confirmPopup.setEventListeners();
-
+//Функционал удаление карточки
 const confirmDel = (id, card) => {
   confirmPopup.open();
   confirmPopup.setSubmitCallback(() => {
@@ -160,6 +143,7 @@ const confirmDel = (id, card) => {
   })
 }
 
+//Работа с лайками
 const handleLikeClick = (card) => {
   const cardId = card.getIdCard();
   const isLiked = card.isLiked();
@@ -174,47 +158,39 @@ const handleLikeClick = (card) => {
     })
 }
 
-
-
-
-const avatarBtn = document.querySelector('.profile__avatar');
-
-avatarBtn.addEventListener('click', () => document.querySelector('.popup_avatar').classList.add('popup_opened'));
-
-const avatarPopup = document.querySelector('.popup_avatar');
-
-// const openAvatarPopup = () => {
-//   avatarPopup.classList.add('popup_opened');
-// }
-
-const saveAvatar = document.querySelector('.popup__refresh-ava-btn');
-
-
-
-saveAvatar.addEventListener('click', () => {
-const newAva = document.querySelector('.popup__text_avatar').textContent;
-api.setAva(newAva)
+//Работа с аватаром
+const popupAvatar = new PopupWithForm('.popup_avatar', () => {
+  popupAvatar.setLoadingBtnStyle(true);
+  const newAva = document.querySelector('.popup__text_avatar').value;
+  api.setAva(newAva)
   .then((data) => {
     console.log(data);
+    popupAvatar.close();
+    document.querySelector('.profile__avatar').src = newAva;
   })
   .catch((error) => {
     console.log(error);
-    // newAvaLink.textContent = '';
   })
+  .finally(() => {
+    popupAvatar.setLoadingBtnStyle(false);
+  });
 })
 
-const popupAvatarClose = document.querySelector('.popup__close_avatar');
-popupAvatarClose.addEventListener('click', () => avatarPopup.classList.remove('popup_opened'));
+new FormValidator(validationObject, popupAvatarForm).enableValidation();
 
-
-const saveProfile = document.querySelector('.popup__save_profile');
-
-const renderLoading = (isLoading) => {
-  if (isLoading) {
-    saveProfile.setAttribute("textContent", 'Сохранение...');
-    console.log('true работает');
-  }
-  else {
-  saveProfile.setAttribute('textContent', 'Сохранить');
-  }
-}
+//Обработчики
+popupPlaceObject.setEventListeners();
+popupProfileObject.setEventListeners();
+popupImage.setEventListeners();
+confirmPopup.setEventListeners();
+popupAvatar.setEventListeners();
+avatarBtn.addEventListener('click', () => popupAvatar.open());
+popupAddButton.addEventListener('click', () => {
+  popupPlaceObject.open();
+});
+popupEditButton.addEventListener('click', () => {
+  popupProfileObject.open();
+  const profileValue = userInfo.getUserInfo();
+  nameInput.value = profileValue.name;
+  jobInput.value = profileValue.about;
+});

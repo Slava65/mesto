@@ -16,6 +16,9 @@ export class Confirm {
       evt.preventDefault();
       this._handleSubmitCallback();
     });
+    this._popupSelector.querySelector('.popup__close').addEventListener('click', () => {
+      this._popupSelector.classList.remove('popup_opened');
+    })
   }
 
   setSubmitCallback(callback) {

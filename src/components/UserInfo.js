@@ -8,7 +8,7 @@ export class UserInfo {
   getUserInfo() {
     const profileValue = {
       name : this._profileName.textContent,
-      about : this._profileInfo.textContent
+      about : this._profileInfo.textContent,
     };
     return  profileValue;
   }
