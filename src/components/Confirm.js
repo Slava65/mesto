@@ -1,24 +1,23 @@
-export class Confirm {
+import { Popup } from "./Popup.js";
+
+export class Confirm extends Popup {
   constructor(popupSelector) {
-    this._popupSelector = document.querySelector(popupSelector);
-  }
-
-  open() {
-    this._popupSelector.classList.add('popup_opened');
-  }
-
-  close() {
-    this._popupSelector.classList.remove('popup_opened');
+    super(popupSelector);
   }
 
   setEventListeners() {
-    this._popupSelector.addEventListener('submit', (evt) => {
+    this._popupSelector.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleSubmitCallback();
     });
-    this._popupSelector.querySelector('.popup__close').addEventListener('click', () => {
-      this._popupSelector.classList.remove('popup_opened');
-    })
+    this._popupSelector
+      .querySelector(".popup__close")
+      .addEventListener("click", () => {
+        this.close();
+      });
+    this._popupSelector.addEventListener("click", (evt) =>
+      this._handleOverlayClose(evt)
+    );
   }
 
   setSubmitCallback(callback) {
